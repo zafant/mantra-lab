@@ -1,10 +1,13 @@
-# Mantra Lab V3.1
+# Mantra Lab V3.2
 
 ## What's new
 - Interactive formation builder with drag & drop and mobile tap-to-place.
 - Combinatorial squad analyzer: tests every supported module instead of relying on greedy assignment.
 - Automatic formation generation with coverage percentage and missing-role hints.
 - Formation result cards integrated into the dark sport-tech UI.
+- Visual gallery of all 11 Mantra modules with mini-pitch role slots inspired by the official tactical layout.
+- Player selection/deselection with a hard maximum of 30 players in the virtual squad.
+- Squad counter `X/30`, listone counter, selected-only filter and bulk selection of visible players.
 - PWA/offline shell (manifest + service worker).
 - Data-provider abstraction for a future authorized online listone source.
 - Local CSV/JSON workflows remain the fallback.
