@@ -1,5 +1,6 @@
 /* V3.4 — format first, module second, interactive field third */
 .hidden{display:none!important}
+.flow-hidden{display:none!important}
 .mode-gate{padding:24px;display:grid;grid-template-columns:1.05fr 1.6fr;gap:22px;align-items:stretch;margin-bottom:16px}
 .mode-gate-copy{display:flex;flex-direction:column;justify-content:center;padding:8px 6px}
 .mode-gate-copy h2{margin:7px 0 6px;font-size:28px;letter-spacing:-.03em}
