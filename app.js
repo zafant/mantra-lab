@@ -27,41 +27,44 @@ const demoPlayers=[
 ];
 
 const modules={
-"3-4-3":[["Por"],["Dc","Dc","Dc"],["E","M","M","E"],["W","A","Pc"]],
-"3-4-1-2":[["Por"],["Dc","Dc","Dc"],["E","M","M","E"],["T"],["A","Pc"]],
-"3-4-2-1":[["Por"],["Dc","Dc","Dc"],["E","M","M","E"],["T","T"],["Pc"]],
-"3-5-2":[["Por"],["Dc","Dc","Dc"],["E","M","C","M","E"],["A","Pc"]],
-"3-5-1-1":[["Por"],["Dc","Dc","Dc"],["E","M","C","M","E"],["T"],["Pc"]],
-"4-3-3":[["Por"],["Dd","Dc","Dc","Ds"],["M","C","M"],["W","A","Pc"]],
-"4-3-1-2":[["Por"],["Dd","Dc","Dc","Ds"],["M","C","M"],["T"],["A","Pc"]],
-"4-4-2":[["Por"],["Dd","Dc","Dc","Ds"],["E","M","M","E"],["A","Pc"]],
-"4-4-1-1":[["Por"],["Dd","Dc","Dc","Ds"],["E","M","M","E"],["T"],["Pc"]],
-"4-2-3-1":[["Por"],["Dd","Dc","Dc","Ds"],["M","M"],["W","T","W"],["Pc"]],
-"4-1-4-1":[["Por"],["Dd","Dc","Dc","Ds"],["M"],["E","C","C","E"],["Pc"]]
+"3-4-3":[["Por"],["Dc","Dc","Dc/B"],["E","M/C","C","E"],["W/A","W/A","A/Pc"]],
+"3-4-1-2":[["Por"],["Dc","Dc","Dc/B"],["E","M/C","C","E"],["T"],["A/Pc","A/Pc"]],
+"3-4-2-1":[["Por"],["Dc","Dc","Dc/B"],["M","M/C","E/W","E"],["T","T/A"],["A/Pc"]],
+"3-5-2":[["Por"],["Dc","Dc","Dc/B"],["E/W","M/C","M","C","E"],["A/Pc","A/Pc"]],
+"3-5-1-1":[["Por"],["Dc","Dc","Dc/B"],["E/W","M","C","M","E/W"],["T/A"],["A/Pc"]],
+"4-3-3":[["Por"],["Dd","Dc","Dc","Ds"],["M/C","M","C"],["W/A","W/A","A/Pc"]],
+"4-3-1-2":[["Por"],["Dd","Dc","Dc","Ds"],["M/C","M","C"],["T"],["T/A/Pc","A/Pc"]],
+"4-4-2":[["Por"],["Dd","Dc","Dc","Ds"],["M/C","C","E","E/W"],["A/Pc","A/Pc"]],
+"4-4-1-1":[["Por"],["Dd","Dc","Dc","Ds"],["M","C"],["E/W","E/W"],["T/A"],["A/Pc"]],
+"4-2-3-1":[["Por"],["Dd","Dc","Dc","Ds"],["M","M/C"],["W/T","T","W/A"],["A/Pc"]],
+"4-1-4-1":[["Por"],["Dd","Dc","Dc","Ds"],["M"],["C/T","T","E/W","W"],["A/Pc"]]
 };
 const classicModules={"4-3-3":[["P"],["D","D","D","D"],["C","C","C"],["A","A","A"]],"4-4-2":[["P"],["D","D","D","D"],["C","C","C","C"],["A","A"]],"3-4-3":[["P"],["D","D","D"],["C","C","C","C"],["A","A","A"]],"3-5-2":[["P"],["D","D","D"],["C","C","C","C","C"],["A","A"]]};
 
 let players=JSON.parse(localStorage.getItem("ml_players")||"null")||demoPlayers;
 let selected=new Set(JSON.parse(localStorage.getItem("ml_selected")||"[]"));
-let mode="mantra", moduleName="3-4-3", assignments={};
+let mode="mantra",moduleName="3-4-3",assignments={},showSelectedOnly=false;
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+selected=new Set([...selected].filter(id=>players.some(p=>p.id===id)).slice(0,30));
 
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-function save(){localStorage.setItem("ml_selected",JSON.stringify([...selected]));localStorage.setItem("ml_players",JSON.stringify(players))}
-function currentModules(){return mode==="mantra"?modules:classicModules}
-function currentModule(){return currentModules()[moduleName]||Object.keys(currentModules())[0]}
-function getPlayer(id){return players.find(p=>p.id===id)}
-function initials(n){return n.split(" ").slice(0,2).map(x=>x[0]).join("").toUpperCase()}
-function playerRoleSet(p){return mode==="mantra"?(p.roles||[]):[p.classic]}
-function roleMatch(p,required){return playerRoleSet(p).includes(required)}
-function assignmentScore(p,req){const roles=playerRoleSet(p);return (roles.includes(req)?(4-roles.length):0)+(Number(p.price)||0)/1000}
+function save(){localStorage.setItem("ml_players",JSON.stringify(players));localStorage.setItem("ml_selected",JSON.stringify([...selected]));}
+function currentModules(){return mode==="mantra"?modules:classicModules;}
+function currentModule(){return currentModules()[moduleName]||Object.keys(currentModules())[0];}
+function getPlayer(id){return players.find(p=>p.id===id);}
+function initials(name){return name.split(" ").slice(0,2).map(x=>x[0]).join("").toUpperCase();}
+function rolesOf(p){return mode==="mantra"?(p.roles||[]):[p.classic];}
+function alternatives(req){return String(req).split("/").map(x=>x.trim()).filter(Boolean);}
+function roleMatch(p,req){return alternatives(req).some(r=>rolesOf(p).includes(r));}
+function score(p,req){const roles=rolesOf(p),matched=alternatives(req).some(r=>roles.includes(r));return matched?(4-roles.length)+(Number(p.price)||0)/1000:999;}
+function toast(msg){const el=$("#appToast");if(!el)return;el.textContent=msg;el.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.classList.remove("show"),2200);}
+function saveAndRender(){save();window.__manualAssignments=null;renderAll();}
 
-function solveModule(name,pool=players.filter(p=>selected.has(p.id))){
-  const required=(currentModules()[name]||[]).flat();
-  const slots=required.map((req,index)=>({index,req,players:pool.filter(p=>roleMatch(p,req)).sort((a,b)=>assignmentScore(a,req)-assignmentScore(b,req))}));
-  slots.sort((a,b)=>a.players.length-b.players.length);
-  const used=new Set(), result={}; let best=null;
+function solveModule(name){
+  const required=(currentModules()[name]||[]).flat(),pool=players.filter(p=>selected.has(p.id));
+  const slots=required.map((req,index)=>({req,index,players:pool.filter(p=>roleMatch(p,req)).sort((a,b)=>score(a,req)-score(b,req))})).sort((a,b)=>a.players.length-b.players.length);
+  const used=new Set(),result={};
   function dfs(i){
-    if(i===slots.length){best={...result};return true}
+    if(i===slots.length)return true;
     const slot=slots[i];
     for(const p of slot.players){
       if(used.has(p.id))continue;
@@ -72,60 +75,114 @@ function solveModule(name,pool=players.filter(p=>selected.has(p.id))){
     return false;
   }
   const complete=dfs(0);
-  if(complete)return {complete:true,assignments:required.map((req,i)=>result[i]||{req,p:null}),missing:[],score:required.length};
-  used.clear();const partial={};
-  for(const slot of slots){const p=slot.players.find(x=>!used.has(x.id));if(p){used.add(p.id);partial[slot.index]={req:slot.req,p}}else partial[slot.index]={req:slot.req,p:null}}
-  const assignments=required.map((req,i)=>partial[i]||{req,p:null});
-  return {complete:false,assignments,missing:assignments.filter(x=>!x.p).map(x=>x.req),score:assignments.filter(x=>x.p).length};
+  if(!complete){
+    used.clear();
+    for(const slot of slots){const p=slot.players.find(x=>!used.has(x.id));result[slot.index]={req:slot.req,p:p||null};if(p)used.add(p.id);}
+  }
+  const solved=required.map((req,i)=>result[i]||{req,p:null});
+  return {complete,assignments:solved,missing:solved.filter(x=>!x.p).map(x=>x.req),coverage:Math.round(solved.filter(x=>x.p).length/required.length*100)};
 }
-function buildAssignment(){const solved=solveModule(moduleName);assignments=solved.assignments;return solved}
-function analyzeAllModules(){
-  const results=Object.keys(currentModules()).map(name=>{const solved=solveModule(name);const total=solved.assignments.length;const covered=total-solved.missing.length;return{module:name,total,covered,missing:solved.missing,complete:solved.complete,coverage:Math.round(covered/total*100),assignments:solved.assignments}});
-  return results.sort((a,b)=>b.coverage-a.coverage||a.missing.length-b.missing.length||a.module.localeCompare(b.module));
+function analyzeAllModules(){return Object.keys(currentModules()).map(name=>{const s=solveModule(name);return{module:name,...s,total:s.assignments.length,covered:s.assignments.filter(x=>x.p).length};}).sort((a,b)=>b.coverage-a.coverage||a.missing.length-b.missing.length||a.module.localeCompare(b.module));}
+function rowY(n){return n<=4?[86,62,38,16].slice(0,n):[88,69,51,33,16].slice(0,n);}
+function miniClass(label){const r=alternatives(label)[0].toLowerCase();if(["por","p"].includes(r))return"gk";if(["dd","ds","dc","b","d"].includes(r))return"def";if(["e","m","c"].includes(r))return"mid";if(["t","w"].includes(r))return"treq";return"att";}
+
+function renderModuleOptions(){
+  const el=$("#moduleSelect");el.innerHTML="";
+  Object.keys(currentModules()).forEach(name=>{const o=document.createElement("option");o.value=name;o.textContent=name;o.selected=name===moduleName;el.appendChild(o);});
 }
-function renderModuleOptions(){const sel=$("#moduleSelect");sel.innerHTML="";Object.keys(currentModules()).forEach(m=>{const o=document.createElement("option");o.value=m;o.textContent=m;if(m===moduleName)o.selected=true;sel.appendChild(o)})}
+function renderModuleGallery(results){
+  const grid=$("#moduleGrid");if(!grid)return;
+  const map=new Map(results.map(r=>[r.module,r])),names=Object.keys(currentModules());
+  grid.innerHTML=names.map(name=>{
+    const rows=currentModules()[name],res=map.get(name),ys=rowY(rows.length);let slots="";
+    rows.forEach((row,ri)=>row.forEach((req,j)=>{const x=row.length===1?50:12+76*j/(row.length-1);slots+=`<span class="mini-slot ${miniClass(req)}" style="left:${x}%;top:${ys[ri]||16}%">${req}</span>`;}));
+    return `<button type="button" class="module-card ${name===moduleName?"active":""} ${res.complete?"complete":""}" data-module="${name}">
+      <div class="module-card-title"><strong>${name}</strong><span>${res.coverage}%</span></div>
+      <div class="mini-pitch">${slots}<i class="mini-center-line"></i></div>
+      <div class="module-card-foot"><span>${res.complete?"✓ Modulo coperto":`Manca ${res.missing.length} slot`}</span><em>${res.covered}/11</em></div>
+    </button>`;
+  }).join("");
+  $$(".module-card").forEach(el=>el.addEventListener("click",()=>{moduleName=el.dataset.module;window.__manualAssignments=null;$("#moduleSelect").value=moduleName;renderAll();}));
+  $("#compatibleCount").textContent=results.filter(r=>r.complete).length;
+  $("#heroModules").textContent=names.length;
+}
+
 function renderPlayers(){
   const q=$("#playerSearch").value.toLowerCase();
-  const list=players.filter(p=>(p.name+" "+p.team+" "+(p.roles||[]).join(" ")+" "+p.classic).toLowerCase().includes(q));
-  $("#playerList").innerHTML=list.map(p=>`<div class="player ${selected.has(p.id)?"selected":""}" data-id="${p.id}"><div class="avatar">${initials(p.name)}</div><div class="pinfo"><div class="pname">${p.name}</div><div class="pmeta">${p.team} · ${mode==="mantra"?(p.roles||[]).join(" / "):p.classic}</div></div><div class="roles">${p.price}</div></div>`).join("");
-  $$(".player").forEach(el=>{el.draggable=true;el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",el.dataset.id);e.dataTransfer.effectAllowed="copy"});el.addEventListener("click",()=>{const id=el.dataset.id;if(selected.has(id)){window.__dragPlayerId=id;document.body.classList.add("placing-player")}else{selected.add(id);window.__dragPlayerId=id;save();renderAll();document.body.classList.add("placing-player")}})});
-  $("#squadCount").textContent=selected.size;$("#heroPlayers").textContent=selected.size;$("#selectedSummary").textContent=`${selected.size} giocatori`;
+  let list=players.filter(p=>(p.name+" "+p.team+" "+(p.roles||[]).join(" ")+" "+p.classic).toLowerCase().includes(q));
+  if(showSelectedOnly)list=list.filter(p=>selected.has(p.id));
+  $("#visibleCount").textContent=`${list.length} visibili`;
+  $("#playerList").innerHTML=list.map(p=>`<button type="button" class="player ${selected.has(p.id)?"selected":""}" data-id="${p.id}" aria-pressed="${selected.has(p.id)}">
+    <span class="selection-mark">${selected.has(p.id)?"✓":"+"}</span><span class="avatar">${initials(p.name)}</span>
+    <span class="pinfo"><span class="pname">${p.name}</span><span class="pmeta">${p.team} · ${mode==="mantra"?(p.roles||[]).join(" / "):p.classic}</span></span><span class="roles">${p.price||"—"}</span>
+  </button>`).join("")||`<div class="empty-list">${showSelectedOnly?"Nessun giocatore selezionato.":"Nessun giocatore trovato."}</div>`;
+  $$(".player").forEach(el=>{el.draggable=true;el.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",el.dataset.id);e.dataTransfer.effectAllowed="copy";});el.addEventListener("click",()=>toggleSelection(el.dataset.id));});
+  $("#squadCount").textContent=`${selected.size}/30`;$("#heroPlayers").textContent=`${selected.size}/30`;$("#heroListone").textContent=players.length;$("#rosterCount").textContent=selected.size;
+  $("#selectedSummary").textContent=`${selected.size} / 30 giocatori`;$("#selectionHint").textContent=selected.size>=30?"Rosa completa":selected.size?`${30-selected.size} slot disponibili`:"Seleziona dal listone";
+  $("#listMeta").textContent=`${players.length} giocatori · max 30 in rosa`;
+  $("#allPlayersBtn").classList.toggle("active",!showSelectedOnly);$("#selectedPlayersBtn").classList.toggle("active",showSelectedOnly);
 }
+function toggleSelection(id){
+  if(selected.has(id)){selected.delete(id);window.__dragPlayerId=null;}
+  else{if(selected.size>=30){toast("Rosa completa: massimo 30 giocatori.");return;}selected.add(id);window.__dragPlayerId=id;document.body.classList.add("placing-player");}
+  saveAndRender();
+}
+function renderPitch(){const solved=solveModule(moduleName);assignments=window.__manualAssignments||solved.assignments;renderPitchFromAssignments();}
 function bindSlots(){
-  $$(".slot").forEach(slot=>{slot.addEventListener("dragover",e=>{e.preventDefault();slot.classList.add("drag-over")});slot.addEventListener("dragleave",()=>slot.classList.remove("drag-over"));slot.addEventListener("drop",e=>{e.preventDefault();slot.classList.remove("drag-over");const id=e.dataTransfer.getData("text/player");if(id)placePlayerOnSlot(id,Number(slot.dataset.slot))});slot.addEventListener("click",()=>{const id=window.__dragPlayerId;if(id){placePlayerOnSlot(id,Number(slot.dataset.slot));window.__dragPlayerId=null;document.body.classList.remove("placing-player")}})});
-  $$(".slot-card[draggable='true']").forEach(card=>card.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",card.dataset.player);e.dataTransfer.effectAllowed="move"}));
+  $$(".slot").forEach(slot=>{
+    slot.addEventListener("dragover",e=>{e.preventDefault();slot.classList.add("drag-over");});
+    slot.addEventListener("dragleave",()=>slot.classList.remove("drag-over"));
+    slot.addEventListener("drop",e=>{e.preventDefault();slot.classList.remove("drag-over");const id=e.dataTransfer.getData("text/player");if(id)placePlayerOnSlot(id,+slot.dataset.slot);});
+    slot.addEventListener("click",()=>{const id=window.__dragPlayerId;if(id){placePlayerOnSlot(id,+slot.dataset.slot);window.__dragPlayerId=null;document.body.classList.remove("placing-player");}});
+  });
+  $$(".slot-card[draggable='true']").forEach(card=>card.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",card.dataset.player);e.dataTransfer.effectAllowed="move";}));
 }
-function renderPitch(){buildAssignment();renderPitchFromAssignments()}
 function renderPitchFromAssignments(){
-  const rows=currentModule(),pos=[[88],[69,69,69,69],[47,47,47,47,47],[25,25,25,25]];let html="",idx=0;
-  rows.forEach((row,ri)=>{const y=pos[ri]||25;row.forEach((req,j)=>{const x=row.length===1?50:15+(70*j/(row.length-1));const a=assignments[idx]||{req,p:null},p=a.p;html+=`<div class="slot ${p?"filled":"empty"}" data-slot="${idx}" data-req="${req}" style="left:${x}%;top:${y}%"><div class="slot-card" draggable="${!!p}" data-player="${p?p.id:""}"><div class="slot-avatar">${p?initials(p.name):"+"}</div><div class="slot-name">${p?p.name:"Inserisci "+req}</div><div class="slot-role">${p?(mode==="mantra"?(p.roles||[]).join(" / "):p.classic):req}</div></div></div>`;idx++})});
+  const rows=currentModule(),ys=rowY(rows.length);let html="",idx=0;
+  rows.forEach((row,ri)=>row.forEach((req,j)=>{const x=row.length===1?50:15+70*j/(row.length-1),a=assignments[idx]||{req,p:null},p=a.p;
+    html+=`<div class="slot ${p?"filled":"empty"}" data-slot="${idx}" data-req="${req}" style="left:${x}%;top:${ys[ri]||16}%"><div class="slot-card" draggable="${!!p}" data-player="${p?p.id:""}"><div class="slot-avatar">${p?initials(p.name):"＋"}</div><div class="slot-name">${p?p.name:"Inserisci"}</div><div class="slot-role">${p?(mode==="mantra"?(p.roles||[]).join(" / "):p.classic):req}</div></div></div>`;idx++;
+  }));
   $("#pitch").innerHTML=html;bindSlots();
-  const missing=Object.values(assignments).filter(x=>!x.p);const pill=$("#statusPill");pill.className="status "+(missing.length?"warn":"good");pill.textContent=missing.length?`${missing.length} posizioni scoperte`:"Modulo coperto";
-  const chips=[...selected].map(getPlayer).filter(Boolean).map(p=>`<button class="chip player-chip" draggable="true" data-player="${p.id}">${p.name}<span>${mode==="mantra"?(p.roles||[]).join("/"):p.classic}</span></button>`).join("");$("#benchChips").innerHTML=chips||'<span class="chip">Nessun giocatore selezionato</span>';
-  $$(".player-chip").forEach(chip=>{chip.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",chip.dataset.player);e.dataTransfer.effectAllowed="move"});chip.addEventListener("click",()=>{window.__dragPlayerId=chip.dataset.player;document.body.classList.add("placing-player")})});
+  const missing=assignments.filter(x=>!x.p),pill=$("#statusPill");pill.className="status "+(missing.length?"warn":"good");pill.textContent=missing.length?`${missing.length} posizioni scoperte`:"Modulo coperto";
+  const chips=[...selected].map(getPlayer).filter(Boolean).map(p=>`<button type="button" class="chip player-chip" draggable="true" data-player="${p.id}">${p.name}<span>${mode==="mantra"?(p.roles||[]).join("/"):p.classic}</span></button>`).join("");$("#benchChips").innerHTML=chips||'<span class="chip">Nessun giocatore selezionato</span>';
+  $$(".player-chip").forEach(chip=>{chip.addEventListener("dragstart",e=>{e.dataTransfer.setData("text/player",chip.dataset.player);e.dataTransfer.effectAllowed="move";});chip.addEventListener("click",()=>{window.__dragPlayerId=chip.dataset.player;document.body.classList.add("placing-player");});});
 }
 function placePlayerOnSlot(id,slotIndex){
-  const p=getPlayer(id),required=currentModule().flat();if(!p||!selected.has(id))return;const targetReq=required[slotIndex];
-  if(!roleMatch(p,targetReq)){$("#statusPill").className="status warn";$("#statusPill").textContent=`${p.name}: ruolo ${targetReq} non coperto`;return}
-  const pool=players.filter(x=>selected.has(x.id)&&x.id!==id);const candidates=required.map((req,index)=>({req,index,players:pool.filter(x=>roleMatch(x,req)).sort((a,b)=>assignmentScore(a,req)-assignmentScore(b,req))})).filter(x=>x.index!==slotIndex).sort((a,b)=>a.players.length-b.players.length);const used=new Set([id]),result={[slotIndex]:{req:targetReq,p}};
-  function dfs(i){if(i===candidates.length)return true;const slot=candidates[i];for(const candidate of slot.players){if(used.has(candidate.id))continue;used.add(candidate.id);result[slot.index]={req:slot.req,p:candidate};if(dfs(i+1))return true;used.delete(candidate.id);delete result[slot.index]}return false}
-  dfs(0);assignments=required.map((req,i)=>result[i]||{req,p:null});window.__manualAssignments=assignments;renderPitchFromAssignments();renderCoverage();
+  const p=getPlayer(id),required=currentModule().flat(),req=required[slotIndex];if(!p||!selected.has(id))return;
+  if(!roleMatch(p,req)){toast(`${p.name}: non compatibile con ${req}`);return;}
+  const pool=players.filter(x=>selected.has(x.id)&&x.id!==id),slots=required.map((r,index)=>({r,index,players:pool.filter(x=>roleMatch(x,r)).sort((a,b)=>score(a,r)-score(b,r))})).filter(x=>x.index!==slotIndex).sort((a,b)=>a.players.length-b.players.length),used=new Set([id]),result={[slotIndex]:{req,p}};
+  function dfs(i){if(i===slots.length)return true;const s=slots[i];for(const candidate of s.players){if(used.has(candidate.id))continue;used.add(candidate.id);result[s.index]={req:s.r,p:candidate};if(dfs(i+1))return true;used.delete(candidate.id);delete result[s.index];}return false;}
+  dfs(0);window.__manualAssignments=required.map((r,i)=>result[i]||{req:r,p:null});assignments=window.__manualAssignments;renderPitchFromAssignments();renderCoverage();
 }
 function renderCoverage(){
   const required=currentModule().flat(),unique=[...new Set(required)];
-  $("#coverage").innerHTML=unique.map(r=>{const need=required.filter(x=>x===r).length;const have=[...selected].map(getPlayer).filter(p=>p&&roleMatch(p,r)).length;const pct=Math.min(100,have/need*100);const cls=pct>=100?"":pct>=50?"warn":"bad";return `<div class="coverage-row"><div class="cov-top"><span>${r}</span><b>${have}/${need}</b></div><div class="cov-bar"><div class="cov-fill ${cls}" style="width:${pct}%"></div></div></div>`}).join("");
-  const missing=Object.values(assignments).filter(x=>!x.p).map(x=>x.req);const tips=missing.length?`Ti mancano ${missing.length} slot. Cerca un profilo compatibile con: <b>${[...new Set(missing)].join(", ")}</b>.`:`La rosa copre tutte le posizioni di questo schema. Prova un altro modulo per confrontare la flessibilità.`;$("#tipBox").innerHTML=`<b>💡 Suggerimento</b><p>${tips}</p>`;$("#moduleTitle").textContent=moduleName;
+  $("#coverage").innerHTML=unique.map(r=>{const need=required.filter(x=>x===r).length,have=[...selected].map(getPlayer).filter(p=>p&&roleMatch(p,r)).length,pct=Math.min(100,have/need*100),cls=pct>=100?"":pct>=50?"warn":"bad";return `<div class="coverage-row"><div class="cov-top"><span>${r}</span><b>${have}/${need}</b></div><div class="cov-bar"><div class="cov-fill ${cls}" style="width:${pct}%"></div></div></div>`;}).join("");
+  const missing=assignments.filter(x=>!x.p).map(x=>x.req);$("#tipBox").innerHTML=`<b>💡 Suggerimento</b><p>${missing.length?`Ti mancano ${missing.length} slot: <b>${[...new Set(missing)].join(", ")}</b>.`:"La rosa copre tutte le posizioni di questo schema. Confronta gli altri moduli sopra."}</p>`;
+  $("#moduleTitle").textContent=moduleName;$("#moduleSubtitle").textContent=`${currentModule().flat().length} slot · ${selected.size} giocatori disponibili`;
 }
-function renderFormationAnalysis(results){const box=$("#formationResults");if(!box)return;box.innerHTML=results.map((r,i)=>{const state=r.complete?"COMPATIBILE":"PARZIALE";const missing=r.missing.length?`<div class="formation-missing">Manca: ${[...new Set(r.missing)].join(" · ")}</div>`:`<div class="formation-ok">✓ 11/11 posizioni coperte</div>`;return `<button class="formation-card ${r.module===moduleName?"active":""}" data-formation="${r.module}"><div class="formation-rank">${String(i+1).padStart(2,"0")}</div><div class="formation-main"><strong>${r.module}</strong><span>${state}</span>${missing}</div><div class="formation-pct">${r.coverage}%</div></button>`}).join("")||`<div class="empty-analysis">Aggiungi giocatori per analizzare la rosa.</div>`;$$(".formation-card").forEach(card=>card.addEventListener("click",()=>{moduleName=card.dataset.formation;window.__manualAssignments=null;$("#moduleSelect").value=moduleName;renderAll()}))}
-function renderSquad(){$("#squadGrid").innerHTML=[...selected].map(id=>getPlayer(id)).filter(Boolean).sort((a,b)=>a.classic.localeCompare(b.classic)).map(p=>`<div class="squad-card card"><h3>${p.name}</h3><p>${p.team} · Quotazione demo ${p.price}</p><div class="role-tags"><span class="role-tag">${p.classic}</span>${(p.roles||[]).map(r=>`<span class="role-tag">${r}</span>`).join("")}</div></div>`).join("")||`<div class="card squad-card"><h3>Rosa vuota</h3><p>Vai nel Builder e aggiungi i giocatori.</p></div>`}
-function renderAll(){renderPlayers();if(window.__manualAssignments){assignments=window.__manualAssignments;renderPitchFromAssignments()}else renderPitch();renderCoverage();renderSquad();renderFormationAnalysis(analyzeAllModules())}
-function findFormation(){const results=analyzeAllModules();renderFormationAnalysis(results);if(results[0]){moduleName=results[0].module;$("#moduleSelect").value=moduleName;window.__manualAssignments=null;renderAll();renderFormationAnalysis(results)}}
-$$('.nav-btn').forEach(b=>b.onclick=()=>{$$('.nav-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.view').forEach(v=>v.classList.add('hidden'));$("#"+b.dataset.view+"View").classList.remove('hidden')});
-$$('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;$$('.mode').forEach(x=>x.classList.toggle('active',x===b));moduleName=Object.keys(currentModules())[0];window.__manualAssignments=null;renderModuleOptions();renderAll()});
-$("#moduleSelect").onchange=e=>{moduleName=e.target.value;window.__manualAssignments=null;renderAll()};$("#playerSearch").oninput=renderPlayers;$("#clearSearch").onclick=()=>{$("#playerSearch").value="";renderPlayers};$("#autoBtn").onclick=findFormation;
-$("#resetSquad").onclick=()=>{if(confirm("Svuotare la rosa virtuale?")){selected.clear();window.__manualAssignments=null;save();renderAll()}};
-$("#exportBtn").onclick=()=>{const data=JSON.stringify({players,selected:[...selected]},null,2);const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([data],{type:"application/json"}));a.download="mantra-lab-rosa.json";a.click();URL.revokeObjectURL(a.href)};
-$("#importInput").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const txt=r.result;if(f.name.toLowerCase().endsWith(".csv")){const lines=txt.split(/\r?\n/).filter(Boolean);const head=lines.shift().split(",").map(x=>x.trim().toLowerCase());players=lines.map((line,i)=>{const c=line.match(/(?:[^,\"]+|\"[^\"]*\")+/g)?.map(x=>x.trim().replace(/^\"|\"$/g,""))||[];const o={};head.forEach((h,j)=>o[h]=c[j]||"");return{id:o.id||"imp"+i,name:o.name,team:o.team||"",classic:o.classic||"",roles:(o.roles||"").split("|").filter(Boolean),price:Number(o.price)||0}}).filter(x=>x.name)}else{const d=JSON.parse(txt);if(Array.isArray(d.players))players=d.players;if(Array.isArray(d.selected))selected=new Set(d.selected)}save();window.__manualAssignments=null;renderAll()}catch(err){alert("File non valido. Usa JSON esportato da Mantra Lab o CSV con colonne: name,team,classic,roles,price")}};r.readAsText(f)};
+function renderFormationAnalysis(results){
+  const box=$("#formationResults");box.innerHTML=results.map((r,i)=>`<button type="button" class="formation-card ${r.module===moduleName?"active":""}" data-formation="${r.module}">
+    <div class="formation-rank">${String(i+1).padStart(2,"0")}</div><div class="formation-main"><strong>${r.module}</strong><span>${r.complete?"COMPATIBILE":"PARZIALE"}</span>${r.complete?`<div class="formation-ok">✓ 11/11 posizioni coperte</div>`:`<div class="formation-missing">Manca: ${[...new Set(r.missing)].join(" · ")}</div>`}</div><div class="formation-pct">${r.coverage}%</div>
+  </button>`).join("")||`<div class="empty-analysis">Aggiungi giocatori per analizzare la rosa.</div>`;
+  $$(".formation-card").forEach(el=>el.addEventListener("click",()=>{moduleName=el.dataset.formation;window.__manualAssignments=null;$("#moduleSelect").value=moduleName;renderAll();}));
+}
+function renderSquad(){$("#squadGrid").innerHTML=[...selected].map(getPlayer).filter(Boolean).map(p=>`<div class="squad-card card"><h3>${p.name}</h3><p>${p.team} · Quotazione demo ${p.price}</p><div class="role-tags"><span class="role-tag">${p.classic}</span>${(p.roles||[]).map(r=>`<span class="role-tag">${r}</span>`).join("")}</div></div>`).join("")||`<div class="card squad-card"><h3>Rosa vuota</h3><p>Vai nel Builder e aggiungi i giocatori.</p></div>`;}
+function renderAll(){renderPlayers();renderPitch();renderCoverage();renderSquad();const results=analyzeAllModules();renderFormationAnalysis(results);renderModuleGallery(results);}
+function findFormation(){const results=analyzeAllModules();if(!results.length)return;moduleName=results[0].module;window.__manualAssignments=null;$("#moduleSelect").value=moduleName;renderAll();toast(results[0].complete?`${results[0].module}: formazione completa`:`Miglior copertura trovata: ${results[0].module}`);}
+
+$$('.nav-btn').forEach(b=>b.addEventListener('click',()=>{$$('.nav-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.view').forEach(v=>v.classList.add('hidden'));$("#"+b.dataset.view+"View").classList.remove('hidden');}));
+$$('.mode').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;$$('.mode').forEach(x=>x.classList.toggle('active',x===b));moduleName=Object.keys(currentModules())[0];window.__manualAssignments=null;renderModuleOptions();renderAll();}));
+$("#moduleSelect").addEventListener("change",e=>{moduleName=e.target.value;window.__manualAssignments=null;renderAll();});
+$("#playerSearch").addEventListener("input",renderPlayers);
+$("#clearSearch").addEventListener("click",()=>{$("#playerSearch").value="";renderPlayers();});
+$("#allPlayersBtn").addEventListener("click",()=>{showSelectedOnly=false;renderPlayers();});
+$("#selectedPlayersBtn").addEventListener("click",()=>{showSelectedOnly=true;renderPlayers();});
+$("#selectVisibleBtn").addEventListener("click",()=>{const q=$("#playerSearch").value.toLowerCase(),visible=players.filter(p=>(p.name+" "+p.team+" "+(p.roles||[]).join(" ")+" "+p.classic).toLowerCase().includes(q));let added=0;for(const p of visible){if(selected.has(p.id))continue;if(selected.size>=30)break;selected.add(p.id);added++;}if(selected.size>=30&&added===0)toast("Rosa completa: massimo 30 giocatori.");saveAndRender();});
+$("#clearSelectionBtn").addEventListener("click",()=>{selected.clear();saveAndRender();});
+$("#autoBtn").addEventListener("click",findFormation);
+$("#shuffleBtn").addEventListener("click",()=>{const names=Object.keys(currentModules()),i=names.indexOf(moduleName);moduleName=names[(i+1)%names.length];window.__manualAssignments=null;renderAll();});
+$("#resetSquad").addEventListener("click",()=>{if(confirm("Svuotare la rosa virtuale?")){selected.clear();saveAndRender();}});
+$("#exportBtn").addEventListener("click",()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({players,selected:[...selected]},null,2)],{type:"application/json"}));a.download="mantra-lab-rosa.json";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);});
+$("#importInput").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const txt=r.result;if(f.name.toLowerCase().endsWith(".csv")){const lines=txt.split(/\r?\n/).filter(Boolean),head=lines.shift().split(",").map(x=>x.trim().toLowerCase());players=lines.map((line,i)=>{const c=line.match(/(?:[^,"]+|"[^"]*")+/g)?.map(x=>x.trim().replace(/^"|"$/g,""))||[],o={};head.forEach((h,j)=>o[h]=c[j]||"");return{id:o.id||"imp"+i,name:o.name,team:o.team||"",classic:o.classic||"",roles:(o.roles||"").split("|").filter(Boolean),price:Number(o.price)||0};}).filter(x=>x.name);}else{const d=JSON.parse(txt);if(Array.isArray(d.players))players=d.players;if(Array.isArray(d.selected))selected=new Set(d.selected.slice(0,30));}selected=new Set([...selected].filter(id=>players.some(p=>p.id===id)).slice(0,30));saveAndRender();}catch(err){alert("File non valido. Usa il JSON esportato o CSV con: id,name,team,classic,roles,price");}};r.readAsText(f);});
 renderModuleOptions();renderAll();
-document.getElementById("shuffleBtn")?.addEventListener("click",()=>{const names=Object.keys(currentModules()),i=names.indexOf(moduleName);moduleName=names[(i+1)%names.length];window.__manualAssignments=null;document.getElementById("moduleSelect").value=moduleName;renderAll()});
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))}
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
