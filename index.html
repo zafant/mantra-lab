@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="it">
 <head>
-    <meta name="theme-color" content="#08131f">
-    <link rel="manifest" href="manifest.webmanifest">
-    <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#08131f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
   <title>Mantra Lab — Costruisci e prova la tua rosa</title>
   <meta name="description" content="Configuratore gratuito per provare rose e moduli Fantacalcio Mantra e Classic.">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles-v32.css">
+  <link rel="stylesheet" href="styles-v33.css">
 </head>
 <body>
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
@@ -20,7 +20,7 @@
     <div class="top-actions"><button class="ghost" id="exportBtn">Esporta</button><label class="ghost file-btn">Importa <input id="importInput" type="file" accept=".json,.csv"></label></div>
   </header>
   <main>
-    <section class="hero"><div><div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.2</div><h1>Prova la tua rosa.<br><span>Trova il tuo modulo.</span></h1><p>Seleziona i giocatori, scegli uno schema e verifica in tempo reale se la tua rosa copre ogni posizione.</p></div>
+    <section class="hero"><div><div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.3</div><h1>Prova la tua rosa.<br><span>Trova il tuo modulo.</span></h1><p>Seleziona i giocatori, scegli uno schema e verifica in tempo reale se la tua rosa copre ogni posizione.</p></div>
       <div class="hero-stats"><div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0/30</strong><small>rosa selezionata</small></div><div class="stat-card"><span class="stat-icon">▦</span><strong id="heroListone">0</strong><small>giocatori nel listone</small></div><div class="stat-card"><span class="stat-icon">✦</span><strong id="heroModules">11</strong><small>schemi Mantra</small></div></div>
     </section>
     <section id="builderView" class="view">
@@ -37,7 +37,7 @@
     <section id="helpView" class="view hidden"><div class="help card"><div class="eyebrow">MVP / ROADMAP</div><h2>Il prodotto nasce gratuito e utile.</h2><p>Questa prima versione è una web app statica: nessun server, nessun account, nessun costo di hosting obbligatorio. I dati della rosa restano nel browser.</p><div class="roadmap"><div><b>01</b><h3>Formation Builder</h3><p>Selezione giocatori, moduli e validazione ruoli.</p></div><div><b>02</b><h3>Squad Analyzer</h3><p>“Quali moduli posso fare con questa rosa?”</p></div><div><b>03</b><h3>Asta Assistant</h3><p>Individuazione dei ruoli scoperti e dei profili necessari.</p></div><div><b>04</b><h3>Monetizzazione</h3><p>Spazi pubblicitari non invasivi e suggerimenti extra, mantenendo il core gratuito.</p></div></div><div class="notice"><b>Nota sui dati:</b> il sito non incorpora automaticamente il listone di terzi. L'importazione è predisposta per usare dati che l'utente è autorizzato a utilizzare.</div></div></section>
   </main>
   <div class="mobile-dock"><button data-view="builder" class="dock-active">⌂<span>Builder</span></button><button data-view="squad">♟<span>Rosa</span></button><button data-view="help">?</button></div>
-  <div id="appToast" class="app-toast" role="status" aria-live="polite"></div><footer>Mantra Lab · V3.2 · Nessun account richiesto</footer>
+  <div id="appToast" class="app-toast" role="status" aria-live="polite"></div><footer>Mantra Lab · V3.3 · Nessun account richiesto</footer>
   <script src="data-provider.js"></script><script src="app.js"></script>
 </body>
 </html>
