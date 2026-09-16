@@ -1,0 +1,91 @@
+id,name,team,classic,roles,price,initialPrice,fvm,fvmMantra,diff,diffMantra,classicMarketPrice,mantraMarketPrice,season,source
+5841,Svilar,Roma,P,Por,19,18,90,90,1,1,19,18,2026/27,Fantacalcio.it
+4431,Carnesecchi,Atalanta,P,Por,16,16,56,56,0,0,16,16,2026/27,Fantacalcio.it
+5116,Martinez Jo.,Inter,P,Por,16,17,63,63,-1,-1,16,17,2026/27,Fantacalcio.it
+4964,Vicario,Juventus,P,Por,16,16,62,62,0,0,16,16,2026/27,Fantacalcio.it
+6966,Butez,Como,P,Por,15,16,47,47,-1,-1,15,16,2026/27,Fantacalcio.it
+4312,Maignan,Milan,P,Por,14,15,51,51,-1,-1,14,15,2026/27,Fantacalcio.it
+4360,Caprile,Cagliari,P,Por,11,9,25,25,2,2,11,9,2026/27,Fantacalcio.it
+6482,Mandas,Lazio,P,Por,11,9,35,35,2,2,11,9,2026/27,Fantacalcio.it
+133,Skorupski,Bologna,P,Por,10,10,28,28,0,0,10,10,2026/27,Fantacalcio.it
+2521,De Gea,Fiorentina,P,Por,10,13,24,24,-3,-3,10,13,2026/27,Fantacalcio.it
+572,Meret,Napoli,P,Por,10,11,45,45,-1,-1,10,11,2026/27,Fantacalcio.it
+6534,Perri,Torino,P,Por,9,9,17,17,0,0,9,9,2026/27,Fantacalcio.it
+2134,Falcone,Lecce,P,Por,8,8,24,24,0,0,8,8,2026/27,Fantacalcio.it
+6462,Okoye,Udinese,P,Por,8,9,26,26,-1,-1,8,9,2026/27,Fantacalcio.it
+6344,Sanchez Ro.,Como,P,Por,8,8,15,15,0,0,8,8,2026/27,Fantacalcio.it
+7332,Bijlow,Genoa,P,Por,7,8,12,12,-1,-1,7,8,2026/27,Fantacalcio.it
+6415,Palmisani,Frosinone,P,Por,6,4,13,13,2,2,6,4,2026/27,Fantacalcio.it
+7411,Daffara,Parma,P,Por,6,7,5,5,-1,-1,6,7,2026/27,Fantacalcio.it
+4236,Muric,Sassuolo,P,Por,6,7,14,14,-1,-1,6,7,2026/27,Fantacalcio.it
+2170,Milinkovic-Savic V.,Napoli,P,Por,5,5,10,10,0,0,5,5,2026/27,Fantacalcio.it
+6248,Stankovic F.,Venezia,P,Por,5,6,9,9,-1,-1,5,6,2026/27,Fantacalcio.it
+4485,Thiam,Monza,P,Por,4,5,4,4,-1,-1,4,5,2026/27,Fantacalcio.it
+6662,Corvi,Parma,P,Por,3,1,10,10,2,2,3,1,2026/27,Fantacalcio.it
+7172,Pessina Mas.,Bologna,P,Por,2,1,1,1,1,1,2,1,2026/27,Fantacalcio.it
+4,Sportiello,Atalanta,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7533,Happonen,Bologna,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+6650,Sherri,Cagliari,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7301,Tornqvist,Monza,P,Por,1,1,3,3,0,0,1,1,2026/27,Fantacalcio.it
+2809,Vigorito,Como,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+6403,Christensen O.,Fiorentina,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+158,Lezzerini,Fiorentina,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7463,Desplanches,Frosinone,P,Por,1,2,1,1,-1,-1,1,2,2026/27,Fantacalcio.it
+7466,Lolic,Frosinone,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+219,Sommariva,Genoa,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+6569,Stolz,Genoa,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+1926,Di Gennaro,Inter,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+2814,Provedel,Inter,P,Por,1,2,5,5,-1,-1,1,2,2026/27,Fantacalcio.it
+1930,Pinsoglio,Juventus,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7337,Motta,Lazio,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7534,Renzetti,Lazio,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+2815,Terracciano,Milan,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+6813,Torriani,Milan,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7475,Strajnar,Monza,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+2845,Contini,Napoli,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7048,De Marzi,Roma,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+610,Gollini,Roma,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+4518,Russo A.,Sassuolo,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+4867,Turati,Sassuolo,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7457,Mascardi,Torino,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7363,Siviero,Torino,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+543,Padelli,Udinese,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+6671,Grandi,Venezia,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7531,Pozzi,Venezia,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+2127,Satalino,Sassuolo,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7557,Penev,Lecce,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7560,Pisseri,Frosinone,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+3,Radunovic,Cagliari,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+4957,Montipò,Venezia,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+4468,Bleve,Lecce,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7603,Grabara,Juventus,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7611,Mrozek,Udinese,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+2874,Ghidotti,Parma,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+7626,Pompei,Atalanta,P,Por,1,1,1,1,0,0,1,1,2026/27,Fantacalcio.it
+254,Dimarco,Inter,D,E|W,30,32,250,250,-2,-1,29,30,2026/27,Fantacalcio.it
+7181,Wesley,Roma,D,E,18,17,87,87,1,0,16,16,2026/27,Fantacalcio.it
+4998,Molina N.,Roma,D,E,18,18,63,63,0,0,18,18,2026/27,Fantacalcio.it
+2788,Bremer,Juventus,D,Dc,16,15,56,56,1,1,16,15,2026/27,Fantacalcio.it
+4159,Akanji,Inter,D,Dc,15,16,41,41,-1,-1,15,16,2026/27,Fantacalcio.it
+2296,Mancini,Roma,D,Dc,15,15,54,54,0,0,15,15,2026/27,Fantacalcio.it
+2120,Bastoni,Inter,D,Dc,14,14,42,42,0,0,14,14,2026/27,Fantacalcio.it
+4409,Rrahmani,Napoli,D,Dc,14,14,51,51,0,0,14,14,2026/27,Fantacalcio.it
+4976,Kalulu,Juventus,D,Dd|Dc,13,13,42,44,0,0,14,14,2026/27,Fantacalcio.it
+5022,Pavlovic,Milan,D,Dc,13,14,43,43,-1,-1,13,14,2026/27,Fantacalcio.it
+6956,Solet,Udinese,D,Dc,13,13,35,35,0,0,13,13,2026/27,Fantacalcio.it
+6869,Ramon,Como,D,Dc,12,10,35,35,2,2,12,10,2026/27,Fantacalcio.it
+6217,Bisseck,Inter,D,Dc,12,11,36,36,1,1,12,11,2026/27,Fantacalcio.it
+2514,Stones,Inter,D,Dc,12,12,19,19,0,0,12,12,2026/27,Fantacalcio.it
+5833,Gila,Milan,D,Dc,12,12,29,29,0,0,12,12,2026/27,Fantacalcio.it
+2816,Di Lorenzo,Napoli,D,Dd|E,12,12,37,37,0,0,12,12,2026/27,Fantacalcio.it
+4317,N'Dicka,Roma,D,Dc,12,13,37,37,-1,-1,12,13,2026/27,Fantacalcio.it
+4807,Hermoso,Roma,D,Dc,11,10,34,34,1,1,11,10,2026/27,Fantacalcio.it
+5982,Spence,Inter,D,E,11,12,23,23,-1,-1,10,11,2026/27,Fantacalcio.it
+5526,Scalvini,Atalanta,D,Dc,10,10,25,25,0,0,10,10,2026/27,Fantacalcio.it
+5750,Ostigard,Genoa,D,Dc,10,11,32,32,-1,-1,10,11,2026/27,Fantacalcio.it
+5641,Chalobah T.,Como,D,Dd|Dc,10,9,28,30,1,1,11,10,2026/27,Fantacalcio.it
+5885,Dodò,Fiorentina,D,Dd|E,9,10,16,16,-1,-1,9,10,2026/27,Fantacalcio.it
+5514,Vasquez,Genoa,D,Ds|Dc,9,9,30,33,0,0,10,10,2026/27,Fantacalcio.it
+5877,Carlos Augusto,Inter,D,B|Ds|E,9,7,25,25,2,2,10,8,2026/27,Fantacalcio.it
+6989,Tiago Gabriel,Lecce,D,Dc,9,7,23,23,2,2,9,7,2026/27,Fantacalcio.it
+7485,Mangas,Monza,D,Ds|E,9,6,25,25,3,3,9,6,2026/27,Fantacalcio.it
