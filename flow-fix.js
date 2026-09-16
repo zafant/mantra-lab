@@ -1,3 +1,6 @@
-/* V3.6 — compatibility shim intentionally left inert.
-   The guided format/module flow is owned by app.js.
-   This file must not override .mode-choice handlers. */
+/* V3.7 — compatibility shim.
+   app.js calls renderModuleGallery(), while the renderer is named renderGallery().
+   Expose the expected name without overriding any click handlers. */
+if (typeof window.renderGallery === 'function') {
+  window.renderModuleGallery = window.renderGallery;
+}
