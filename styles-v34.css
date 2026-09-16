@@ -52,3 +52,59 @@ body.placing-player .slot.empty .slot-card{border-color:#7cf5bf66;box-shadow:0 0
 @media(max-width:1150px){.mode-gate{grid-template-columns:1fr}.module-grid{grid-template-columns:repeat(2,minmax(200px,1fr))}}
 @media(max-width:850px){.mode-choice-grid{grid-template-columns:1fr}.module-grid{grid-template-columns:repeat(2,minmax(170px,1fr))}.module-browser-head{align-items:start}.module-browser-meta{display:none}}
 @media(max-width:650px){.mode-gate{padding:16px}.mode-gate-copy h2{font-size:23px}.module-browser{padding:14px}.module-grid{display:flex;overflow-x:auto;gap:10px;padding:2px 2px 8px;scroll-snap-type:x mandatory}.module-card{flex:0 0 205px;scroll-snap-align:start}.mini-pitch{height:205px}.workspace{margin-top:12px}}
+
+/* V3.8 — tactical layout closer to the supplied 2026/27 reference */
+.module-browser{background:linear-gradient(180deg,#111a2b,#0b1220);border-color:#24324a}
+.module-grid{grid-template-columns:repeat(3,minmax(245px,1fr));gap:16px}
+.module-card{padding:11px;border-radius:18px;background:linear-gradient(180deg,#101a2a,#0a111e);border-color:#2a3850}
+.module-card-title{padding:2px 4px 0}
+.module-card-title strong{font-size:20px;letter-spacing:-.02em}
+.module-card-title span{font-size:10px}
+.mini-pitch{height:270px;margin-top:9px;border-radius:5px;border:2px solid #78a94b88;background:linear-gradient(180deg,#4c8516,#5b941c 48%,#467b12);box-shadow:inset 0 0 35px #1e430b66}
+.mini-pitch:before{inset:3%;border:1px solid #ecffd29c;border-radius:1px}
+.mini-pitch:after{left:3%;right:3%;top:50%;border-top:1px solid #ecffd29c}
+.mini-center-line{width:23%;height:14%;left:38.5%;top:43%;border:1px solid #ecffd29c}
+.mini-slot{min-width:39px;padding:5px 5px;border-radius:4px;font-size:9px;line-height:1.05;letter-spacing:.01em;border:1px solid #ffffffb8;box-shadow:0 2px 5px #0009}
+.mini-slot.gk{background:#ee9f18}.mini-slot.def{background:#4b9a38}.mini-slot.mid{background:#2b76d2}.mini-slot.treq{background:#a426a2}.mini-slot.att{background:#c92835}
+.module-card-foot{padding:9px 4px 2px;font-size:10px}
+
+/* The real playing surface is portrait, not landscape. */
+.workspace{display:grid;grid-template-columns:270px minmax(460px,620px) 270px;justify-content:center;align-items:start;gap:16px}
+.pitch-wrap{width:100%;max-width:620px;margin:0 auto}
+.pitch-shell{padding:9px;background:#080f19;border:1px solid #26344c;border-radius:19px}
+.pitch{width:min(100%,560px);height:auto;aspect-ratio:0.68;min-height:720px;margin:0 auto;border:2px solid #78a94b88;border-radius:6px;background:linear-gradient(180deg,#4b8615 0%,#5c9720 48%,#477d13 100%);box-shadow:inset 0 0 70px #1e470c88,0 18px 45px #0006}
+.pitch:before{inset:3%;border:1px solid #efffd19a;border-radius:1px}
+.pitch:after{left:3%;right:3%;top:50%;bottom:auto;border-left:0;border-top:1px solid #efffd19a}
+.pitch-shell:after{content:"";display:block}
+.slot{width:96px}
+.slot-card{min-width:86px;max-width:108px;padding:7px 7px 8px;border-radius:7px;background:rgba(8,18,28,.91);border:1px solid #ffffff30;box-shadow:0 7px 18px #0008}
+.slot-avatar{width:34px;height:34px;margin:0 auto 4px;border-radius:50%;background:#173329;border:1px solid #70e8bb55}
+.slot-name{font-size:10px}.slot-role{font-size:8px;margin-top:3px}
+.slot.empty .slot-card{background:rgba(5,45,31,.72);border-color:#d5f7d080}
+body.placing-player .slot.empty .slot-card{border-color:#7cf5bf;box-shadow:0 0 0 2px #7cf5bf22,0 0 18px #7cf5bf22}
+.bench{max-width:620px;margin-left:auto;margin-right:auto}
+.formation-panel{grid-column:2;margin-top:0;width:100%;max-width:620px;justify-self:center}
+
+@media(max-width:1150px){
+  .module-grid{grid-template-columns:repeat(2,minmax(230px,1fr))}
+  .workspace{grid-template-columns:250px minmax(440px,560px);justify-content:center}
+  .analysis{grid-column:1/-1;min-height:auto}
+  .formation-panel{grid-column:2}
+}
+@media(max-width:850px){
+  .module-grid{grid-template-columns:repeat(2,minmax(190px,1fr))}
+  .workspace{grid-template-columns:1fr;max-width:620px;margin-left:auto;margin-right:auto}
+  .sidebar,.analysis,.pitch-wrap,.formation-panel{width:100%;max-width:620px;grid-column:auto}
+  .pitch{min-height:680px}
+}
+@media(max-width:650px){
+  .module-grid{display:flex;overflow-x:auto;gap:10px;padding:2px 2px 10px;scroll-snap-type:x mandatory}
+  .module-card{flex:0 0 220px;scroll-snap-align:start}
+  .mini-pitch{height:250px}
+  .workspace{margin-top:12px}
+  .pitch{width:min(100%,390px);min-height:570px;aspect-ratio:.68}
+  .slot{width:76px}
+  .slot-card{min-width:70px;max-width:84px;padding:5px 4px}
+  .slot-avatar{width:29px;height:29px;font-size:9px}
+  .slot-name{font-size:8px}.slot-role{font-size:7px}
+}
