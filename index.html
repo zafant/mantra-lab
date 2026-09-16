@@ -29,12 +29,13 @@
   <main>
     <section class="hero">
       <div>
-        <div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.1</div>
+        <div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.2</div>
         <h1>Prova la tua rosa.<br><span>Trova il tuo modulo.</span></h1>
         <p>Seleziona i giocatori, scegli uno schema e verifica in tempo reale se la tua rosa copre ogni posizione.</p>
       </div>
       <div class="hero-stats">
-        <div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0</strong><small>giocatori in rosa</small></div>
+        <div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0/30</strong><small>rosa selezionata</small></div>
+        <div class="stat-card"><span class="stat-icon">▦</span><strong id="heroListone">0</strong><small>giocatori nel listone</small></div>
         <div class="stat-card"><span class="stat-icon">✦</span><strong id="heroModules">11</strong><small>schemi Mantra</small></div>
       </div>
     </section>
@@ -48,20 +49,31 @@
         <div class="toolbar-search">
           <span>⌕</span><input id="playerSearch" placeholder="Cerca giocatore, squadra o ruolo…">
         </div>
-        <select id="moduleSelect"></select>
+        <div class="roster-counter" aria-live="polite"><b id="rosterCount">0</b><span>/ 30 rosa</span></div>
+        <button class="ghost compact" id="selectVisibleBtn">Seleziona visibili</button>
+        <button class="ghost compact" id="clearSelectionBtn">Deseleziona</button>
+        <select id="moduleSelect" class="visually-hidden"></select>
         <button class="primary" id="autoBtn"><span>✦</span> Trova formazioni</button>
       </div>
+      <section class="module-browser card">
+        <div class="module-browser-head">
+          <div><span class="muted">SCHEMI MANTRA</span><h2>Scegli il modulo</h2></div>
+          <div class="module-browser-meta"><b id="compatibleCount">0</b><span>/ 11 compatibili</span></div>
+        </div>
+        <div id="moduleGrid" class="module-grid"></div>
+      </section>
 
       <div class="workspace">
         <aside class="sidebar card">
-          <div class="panel-head"><div><h2>Listone</h2><span id="listMeta">Demo locale</span></div><button id="clearSearch" class="icon">×</button></div>
+          <div class="panel-head"><div><h2>Listone</h2><span id="listMeta">Demo locale · max 30 in rosa</span></div><button id="clearSearch" class="icon" aria-label="Pulisci ricerca">×</button></div>
+          <div class="listone-tools"><button class="filter-chip active" id="allPlayersBtn">Tutti</button><button class="filter-chip" id="selectedPlayersBtn">Selezionati</button><span id="visibleCount"></span></div>
           <div id="playerList" class="player-list"></div>
           <div class="sidebar-foot">I dati mostrati nella demo sono esempi. Usa <b>Importa</b> per caricare il tuo dataset.</div>
         </aside>
 
         <section class="pitch-wrap">
           <div class="pitch-head">
-            <div><span class="muted">FORMAZIONE</span><h2 id="moduleTitle">3-4-3</h2></div>
+            <div><span class="muted">FORMAZIONE</span><h2 id="moduleTitle">3-4-3</h2><span id="moduleSubtitle" class="module-subtitle">11 slot · 11 titolari</span></div>
             <div id="statusPill" class="status neutral">Seleziona i giocatori</div>
           </div>
           <div class="pitch-shell">
@@ -69,7 +81,7 @@
             <div class="pitch" id="pitch"></div>
           </div>
           <div class="bench card">
-            <div><span class="muted">ROSA SELEZIONATA</span><strong id="selectedSummary">0 giocatori</strong></div>
+            <div><span class="muted">ROSA SELEZIONATA</span><strong id="selectedSummary">0 / 30 giocatori</strong><small id="selectionHint" class="selection-hint">Seleziona dal listone</small></div>
             <div class="bench-chips" id="benchChips"></div>
           </div>
         </section>
@@ -113,7 +125,7 @@
     <button data-view="squad">♟<span>Rosa</span></button>
     <button data-view="help">?</button>
   </div>
-  <footer>Mantra Lab · V3.1 · Nessun account richiesto</footer>
+  <div id="appToast" class="app-toast" role="status" aria-live="polite"></div><footer>Mantra Lab · V3.2 · Nessun account richiesto</footer>
   <script src="data-provider.js"></script>
   <script src="app.js"></script>
 </body>
