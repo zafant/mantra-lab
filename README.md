@@ -1,18 +1,19 @@
-# Mantra Lab
+# Mantra Lab V3 foundation
 
-Il tuo laboratorio per il Fantacalcio: costruisci, analizza e visualizza le formazioni Mantra e Classic.
+## What's new
+- Interactive formation-builder direction preserved from MVP v2.
+- PWA/offline shell (manifest + service worker).
+- Data-provider abstraction for a future authorized online listone source.
+- Local CSV/JSON workflows remain the fallback.
+- Static hosting ready: GitHub Pages or Cloudflare Pages.
 
-## V3 Interactive
-- Formation builder interattivo
-- Campo con giocatori e drag & drop
-- Tap-to-place su mobile
-- Import CSV/JSON
-- Data provider astratto per una futura sorgente online autorizzata
-- PWA/offline shell
-- Static hosting ready per Cloudflare Pages / GitHub Pages
+## Hosting plan
+Recommended for the current static phase:
+1. Dedicated public GitHub repository.
+2. Cloudflare Pages connected to that repository for deployment/previews.
+3. Optional custom domain later.
 
-## Hosting
-Target: GitHub -> Cloudflare Pages -> dominio personalizzato opzionale.
+GitHub Pages is also a viable zero-cost static host. Cloudflare Pages currently supports static HTML and automatic deployments from Git, with a Free plan. See the project roadmap before connecting a live domain.
 
-## Sorgenti dati
-Il provider online va collegato solo a una fonte/API che autorizzi il recupero automatico e il riutilizzo dei dati e delle immagini.
+## Important
+The online listone button should only be connected to a source/API whose terms authorize automated retrieval and reuse of the data/images.

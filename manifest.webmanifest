@@ -1,0 +1,9 @@
+{
+  "name": "Mantra Lab",
+  "short_name": "Mantra Lab",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#08131f",
+  "theme_color": "#08131f",
+  "description": "Laboratorio per costruire e analizzare formazioni Fantacalcio Mantra."
+}
