@@ -16,114 +16,34 @@
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">M</span><span>MANTRA <b>LAB</b></span></div>
-    <nav>
-      <button class="nav-btn active" data-view="builder">Builder</button>
-      <button class="nav-btn" data-view="squad">La mia rosa <span id="squadCount">0</span></button>
-      <button class="nav-btn" data-view="help">Come funziona</button>
-    </nav>
-    <div class="top-actions">
-      <button class="ghost" id="exportBtn">Esporta</button>
-      <label class="ghost file-btn">Importa <input id="importInput" type="file" accept=".json,.csv"></label>
-    </div>
+    <nav><button class="nav-btn active" data-view="builder">Builder</button><button class="nav-btn" data-view="squad">La mia rosa <span id="squadCount">0</span></button><button class="nav-btn" data-view="help">Come funziona</button></nav>
+    <div class="top-actions"><button class="ghost" id="exportBtn">Esporta</button><label class="ghost file-btn">Importa <input id="importInput" type="file" accept=".json,.csv"></label></div>
   </header>
-
   <main>
-    <section class="hero">
-      <div>
-        <div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.4</div>
-        <h1>Prima scegli il gioco.<br><span>Poi costruisci la formazione.</span></h1>
-        <p>Listone 2026/27 locale, moduli dedicati e campo interattivo: trascina i giocatori dal listone direttamente nella posizione che vuoi occupare.</p>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0/30</strong><small>rosa selezionata</small></div>
-        <div class="stat-card"><span class="stat-icon">▦</span><strong id="heroListone">0</strong><small>giocatori nel listone</small></div>
-        <div class="stat-card"><span class="stat-icon">✦</span><strong id="heroModules">11</strong><small>moduli disponibili</small></div>
-      </div>
+    <section class="hero"><div><div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.5</div><h1>Prima scegli il gioco.<br><span>Poi costruisci la formazione.</span></h1><p>Listone 2026/27 locale, moduli dedicati e campo interattivo: seleziona i giocatori solo dopo aver scelto il modulo.</p></div>
+      <div class="hero-stats"><div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0/30</strong><small>rosa selezionata</small></div><div class="stat-card"><span class="stat-icon">▦</span><strong id="heroListone">0</strong><small>giocatori nel listone</small></div><div class="stat-card"><span class="stat-icon">✦</span><strong id="heroModules">11</strong><small>moduli disponibili</small></div></div>
     </section>
-
     <section id="builderView" class="view">
       <section class="mode-gate card" id="modeGate">
         <div class="mode-gate-copy"><span class="muted">01 · FORMATO</span><h2>Scegli prima il tipo di gioco</h2><p>La scelta del formato determina i moduli, i ruoli e le regole di compatibilità del campo.</p></div>
-        <div class="mode-choice-grid">
-          <button class="mode-choice" data-mode="mantra"><span class="mode-choice-mark">M</span><span><b>MANTRA</b><small>Ruoli dinamici · 11 moduli</small></span><i>→</i></button>
-          <button class="mode-choice" data-mode="classic"><span class="mode-choice-mark classic-mark">C</span><span><b>CLASSIC</b><small>Ruoli tradizionali · moduli Classic</small></span><i>→</i></button>
-        </div>
+        <div class="mode-choice-grid"><button class="mode-choice" data-mode="mantra"><span class="mode-choice-mark">M</span><span><b>MANTRA</b><small>Ruoli dinamici · 11 moduli</small></span><i>→</i></button><button class="mode-choice" data-mode="classic"><span class="mode-choice-mark classic-mark">C</span><span><b>CLASSIC</b><small>Ruoli tradizionali · moduli Classic</small></span><i>→</i></button></div>
       </section>
-
       <div id="builderControls" class="hidden">
-        <div class="toolbar card">
-          <div class="format-pill"><span class="format-dot" id="formatDot"></span><b id="formatLabel">MANTRA</b><button id="changeModeBtn" class="ghost compact">Cambia</button></div>
-          <div class="toolbar-search"><span>⌕</span><input id="playerSearch" placeholder="Cerca giocatore, squadra o ruolo…"></div>
-          <div class="roster-counter" aria-live="polite"><b id="rosterCount">0</b><span>/ 30 rosa</span></div>
-          <button class="ghost compact" id="selectVisibleBtn">Seleziona visibili</button>
-          <button class="ghost compact" id="clearSelectionBtn">Deseleziona</button>
-          <select id="moduleSelect" class="visually-hidden"></select>
-          <button class="primary" id="autoBtn"><span>✦</span> Trova formazioni</button>
-        </div>
-
-        <section class="module-browser card" id="moduleBrowser">
-          <div class="module-browser-head">
-            <div><span class="muted">02 · MODULO</span><h2>Scegli lo schema da giocare</h2><p class="module-browser-intro">Clicca su un modulo per aprire subito il campo interattivo.</p></div>
-            <div class="module-browser-meta"><b id="compatibleCount">0</b><span>completi</span></div>
-          </div>
-          <div id="moduleGrid" class="module-grid"></div>
-        </section>
-
+        <div class="toolbar card"><div class="format-pill"><span class="format-dot" id="formatDot"></span><b id="formatLabel">MANTRA</b><button id="changeModeBtn" class="ghost compact">Cambia</button></div><div class="toolbar-search"><span>⌕</span><input id="playerSearch" placeholder="Cerca giocatore, squadra o ruolo…"></div><div class="roster-counter" aria-live="polite"><b id="rosterCount">0</b><span>/ 30 rosa</span></div><button class="ghost compact" id="selectVisibleBtn">Seleziona visibili</button><button class="ghost compact" id="clearSelectionBtn">Deseleziona</button><select id="moduleSelect" class="visually-hidden"></select><button class="primary" id="autoBtn"><span>✦</span> Trova formazioni</button></div>
+        <section class="module-browser card" id="moduleBrowser"><div class="module-browser-head"><div><span class="muted">02 · MODULO</span><h2>Scegli lo schema da giocare</h2><p class="module-browser-intro">Clicca sul modulo per aprire il campo. La selezione dei giocatori viene abilitata solo dopo.</p></div><div class="module-browser-meta"><b id="compatibleCount">0</b><span>completi</span></div></div><div id="moduleGrid" class="module-grid"></div></section>
         <section id="formationWorkspace" class="workspace hidden">
-          <aside class="sidebar card">
-            <div class="panel-head"><div><span class="muted">03 · LISTONE</span><h2>Giocatori</h2><span id="listMeta">Listone 2026/27 · max 30 in rosa</span></div><button id="clearSearch" class="icon" aria-label="Pulisci ricerca">×</button></div>
-            <div class="listone-tools"><button class="filter-chip active" id="allPlayersBtn">Tutti</button><button class="filter-chip" id="selectedPlayersBtn">Selezionati</button><span id="visibleCount"></span></div>
-            <div id="playerList" class="player-list"></div>
-            <div class="sidebar-foot">Trascina un giocatore sul campo per assegnarlo a una posizione compatibile. Su mobile: tocca il giocatore e poi la posizione.</div>
-          </aside>
-
-          <section class="pitch-wrap">
-            <div class="pitch-head">
-              <div><span class="muted">04 · FORMAZIONE</span><h2 id="moduleTitle">3-4-3</h2><span id="moduleSubtitle" class="module-subtitle">11 slot · 11 titolari</span></div>
-              <div id="statusPill" class="status neutral">Seleziona i giocatori</div>
-            </div>
-            <div class="pitch-shell">
-              <div class="pitch-toolbar"><span>DRAG &amp; DROP · LIVE PREVIEW</span><button id="shuffleBtn" class="mini-btn">↻ Cambia modulo</button></div>
-              <div class="pitch" id="pitch"></div>
-            </div>
-            <div class="bench card">
-              <div><span class="muted">ROSA SELEZIONATA</span><strong id="selectedSummary">0 / 30 giocatori</strong><small id="selectionHint" class="selection-hint">Trascina i giocatori sul campo</small></div>
-              <div class="bench-chips" id="benchChips"></div>
-            </div>
-          </section>
-
-          <aside class="analysis card">
-            <div class="panel-head"><div><h2>Analisi</h2><span>Copertura del modulo</span></div></div>
-            <div id="coverage"></div>
-            <div class="tip" id="tipBox"><b>💡 Suggerimento</b><p>Trascina un giocatore dal listone in una posizione del campo.</p></div>
-          </aside>
-
-          <aside class="formation-panel card">
-            <div class="panel-head"><div><h2>Formazioni trovate</h2><span>Analisi della rosa</span></div><span class="live-dot">LIVE</span></div>
-            <div id="formationResults" class="formation-results"></div>
-          </aside>
+          <aside class="sidebar card"><div class="panel-head"><div><span class="muted">03 · LISTONE</span><h2>Giocatori</h2><span id="listMeta">Listone 2026/27 · max 30 in rosa</span></div><button id="clearSearch" class="icon" aria-label="Pulisci ricerca">×</button></div><div class="listone-tools"><button class="filter-chip active" id="allPlayersBtn">Tutti</button><button class="filter-chip" id="selectedPlayersBtn">Selezionati</button><span id="visibleCount"></span></div><div id="playerList" class="player-list"></div><div class="sidebar-foot">Trascina un giocatore sul campo per assegnarlo a una posizione compatibile. Su mobile: tocca il giocatore e poi la posizione.</div></aside>
+          <section class="pitch-wrap"><div class="pitch-head"><div><span class="muted">04 · FORMAZIONE</span><h2 id="moduleTitle">3-4-3</h2><span id="moduleSubtitle" class="module-subtitle">11 slot · 11 titolari</span></div><div id="statusPill" class="status neutral">Seleziona i giocatori</div></div><div class="pitch-shell"><div class="pitch-toolbar"><span>DRAG &amp; DROP · LIVE PREVIEW</span><button id="shuffleBtn" class="mini-btn">↻ Cambia modulo</button></div><div class="pitch" id="pitch"></div></div><div class="bench card"><div><span class="muted">ROSA SELEZIONATA</span><strong id="selectedSummary">0 / 30 giocatori</strong><small id="selectionHint" class="selection-hint">Trascina i giocatori sul campo</small></div><div class="bench-chips" id="benchChips"></div></div></section>
+          <aside class="analysis card"><div class="panel-head"><div><h2>Analisi</h2><span>Copertura del modulo</span></div></div><div id="coverage"></div><div class="tip" id="tipBox"><b>💡 Suggerimento</b><p>Trascina un giocatore dal listone in una posizione del campo.</p></div></aside>
+          <aside class="formation-panel card"><div class="panel-head"><div><h2>Formazioni trovate</h2><span>Analisi della rosa</span></div><span class="live-dot">LIVE</span></div><div id="formationResults" class="formation-results"></div></aside>
         </section>
       </div>
     </section>
-
-    <section id="squadView" class="view hidden">
-      <div class="page-head"><div><div class="eyebrow">LA MIA ROSA</div><h2>La tua rosa virtuale</h2><p>Una rosa locale, senza account e senza costi.</p></div><button class="danger" id="resetSquad">Svuota rosa</button></div>
-      <div class="squad-grid" id="squadGrid"></div>
-    </section>
-
-    <section id="helpView" class="view hidden">
-      <div class="help card">
-        <div class="eyebrow">WORKFLOW</div><h2>Un flusso semplice: formato → modulo → campo.</h2>
-        <p>Mantra Lab usa il listone 2026/27 importato localmente come sorgente dati del simulatore. Il provider resta separato per poter sostituire in futuro la sorgente con un aggiornamento online autorizzato.</p>
-        <div class="roadmap"><div><b>01</b><h3>Scegli MANTRA o CLASSIC</h3><p>Il formato viene scelto prima di tutto.</p></div><div><b>02</b><h3>Scegli il modulo</h3><p>Ogni modulo mostra una miniatura tattica.</p></div><div><b>03</b><h3>Costruisci in campo</h3><p>Drag &amp; drop dal listone, oppure tap su mobile.</p></div><div><b>04</b><h3>Analizza</h3><p>Compatibilità, copertura e ricerca automatica.</p></div></div>
-        <div class="notice"><b>Fonte dati:</b> listone Fantacalcio 2026/27 fornito per questo progetto. Le immagini e un eventuale aggiornamento online dovranno essere collegati solo tramite una fonte autorizzata.</div>
-      </div>
-    </section>
+    <section id="squadView" class="view hidden"><div class="page-head"><div><div class="eyebrow">LA MIA ROSA</div><h2>La tua rosa virtuale</h2><p>Una rosa locale, senza account e senza costi.</p></div><button class="danger" id="resetSquad">Svuota rosa</button></div><div class="squad-grid" id="squadGrid"></div></section>
+    <section id="helpView" class="view hidden"><div class="help card"><div class="eyebrow">WORKFLOW</div><h2>Un flusso semplice: formato → modulo → campo.</h2><p>Mantra Lab usa il listone 2026/27 importato localmente come sorgente dati del simulatore. Il provider resta separato per poter sostituire in futuro la sorgente con un aggiornamento online autorizzato.</p><div class="roadmap"><div><b>01</b><h3>Scegli MANTRA o CLASSIC</h3><p>Il formato viene scelto prima di tutto.</p></div><div><b>02</b><h3>Scegli il modulo</h3><p>Ogni modulo mostra una miniatura tattica.</p></div><div><b>03</b><h3>Costruisci in campo</h3><p>Drag &amp; drop dal listone, oppure tap su mobile.</p></div><div><b>04</b><h3>Analizza</h3><p>Compatibilità, copertura e ricerca automatica.</p></div></div><div class="notice"><b>Fonte dati:</b> listone Fantacalcio 2026/27 fornito per questo progetto. Le immagini e un eventuale aggiornamento online dovranno essere collegati solo tramite una fonte autorizzata.</div></div></section>
   </main>
-
   <div class="mobile-dock"><button data-view="builder" class="dock-active">⌂<span>Builder</span></button><button data-view="squad">♟<span>Rosa</span></button><button data-view="help">?</button></div>
-  <div id="appToast" class="app-toast" role="status" aria-live="polite"></div>
-  <footer>Mantra Lab · Listone 2026/27 · MVP gratuito · Nessun account richiesto</footer>
-  <script src="data-provider.js"></script><script src="app.js"></script>
+  <div id="appToast" class="app-toast" role="status" aria-live="polite"></div><footer>Mantra Lab · V3.5 · Nessun account richiesto</footer>
+  <script src="data-provider.js"></script><script src="app.js"></script><script src="flow-fix.js"></script>
 </body>
 </html>
