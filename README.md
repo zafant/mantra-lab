@@ -1,27 +1,27 @@
-# Mantra Lab V3.2
+# Mantra Lab V3.4
 
-## What's new
-- Interactive formation builder with drag & drop and mobile tap-to-place.
-- Combinatorial squad analyzer: tests every supported module instead of relying on greedy assignment.
-- Automatic formation generation with coverage percentage and missing-role hints.
-- Formation result cards integrated into the dark sport-tech UI.
-- Visual gallery of all 11 Mantra modules with mini-pitch role slots inspired by the official tactical layout.
-- Player selection/deselection with a hard maximum of 30 players in the virtual squad.
-- Squad counter `X/30`, listone counter, selected-only filter and bulk selection of visible players.
-- PWA/offline shell (manifest + service worker).
-- Data-provider abstraction for a future authorized online listone source.
-- Local CSV/JSON workflows remain the fallback.
-- Static hosting ready for Cloudflare Pages / Workers and GitHub Pages.
+## Cosa cambia
+- Flusso guidato **FORMATO → MODULO → CAMPO**: prima MANTRA o CLASSIC, poi lo schema, quindi il campo interattivo.
+- Listone Fantacalcio 2026/27 fornito per il progetto integrato localmente come sorgente dati iniziale.
+- Tutti i giocatori del foglio `Tutti` sono disponibili nel builder, con ruolo Classic e ruoli Mantra del listone.
+- Moduli visualizzati come mini-campi tattici, con ruoli colorati e selezione del modulo tramite click.
+- Drag & drop diretto dal listone al campo: se il giocatore non è ancora in rosa viene aggiunto automaticamente, nel limite di 30.
+- Su mobile resta disponibile il flusso tap-giocatore → tap-posizione.
+- Spostamento dei giocatori tra le posizioni e riempimento automatico degli slot rimanenti compatibili.
+- Analisi di copertura e ricerca delle formazioni mantenute nel nuovo flusso.
+- PWA/offline shell aggiornata alla versione V3.4.
 
-## Current product flow
-**LISTONE → ROSA → MODULO → FORMAZIONE**
+## Flusso prodotto
+**FORMATO → MODULO → LISTONE → CAMPO**
 
-The core experience is designed to remain free and mobile-first: select a squad, ask Mantra Lab to analyze it, compare compatible modules and open any result directly on the pitch.
+Il core resta gratuito e mobile-first. La sorgente locale è separata dal motore UI tramite `data-provider.js`, così in futuro potrà essere sostituita con un provider online autorizzato senza riscrivere il builder.
+
+## Dati
+Il file `data/listone-2026-27.csv` deriva dal listone 2026/27 fornito per questo progetto e contiene 532 giocatori del foglio `Tutti`.
+
+Campi principali: ID, nome, squadra, ruolo Classic, ruoli Mantra, quotazione, quotazione iniziale e FVM.
+
+Eventuali immagini, statistiche aggiuntive o aggiornamenti online devono essere collegati solo tramite una fonte autorizzata. Il provider è intenzionalmente sostituibile.
 
 ## Hosting
-The production repository is connected to Cloudflare. New commits on `main` are intended to trigger the connected deployment automatically.
-
-## Data and legal
-The demo data is local sample data. The online listone layer must only be connected to a source/API whose terms authorize automated retrieval and reuse of the relevant data and images.
-
-The official Fantacalcio 2026/27 listone and Mantra roles are published by Fantacalcio.it; Mantra role assignments can receive an end-of-market check during the season, so the provider layer should remain updateable rather than hard-coded forever.
+Il repository è collegato a Cloudflare Workers. I commit sulla `main` sono destinati a innescare il deployment configurato su Cloudflare.
