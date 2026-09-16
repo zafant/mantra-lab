@@ -29,7 +29,7 @@
   <main>
     <section class="hero">
       <div>
-        <div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE</div>
+        <div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.1</div>
         <h1>Prova la tua rosa.<br><span>Trova il tuo modulo.</span></h1>
         <p>Seleziona i giocatori, scegli uno schema e verifica in tempo reale se la tua rosa copre ogni posizione.</p>
       </div>
@@ -79,6 +79,11 @@
           <div id="coverage"></div>
           <div class="tip" id="tipBox"><b>💡 Suggerimento</b><p>Aggiungi almeno un giocatore per iniziare la simulazione.</p></div>
         </aside>
+
+        <aside class="formation-panel card">
+          <div class="panel-head"><div><h2>Formazioni trovate</h2><span>Analisi combinatoria della rosa</span></div><span class="live-dot">LIVE</span></div>
+          <div id="formationResults" class="formation-results"></div>
+        </aside>
       </div>
     </section>
 
@@ -108,8 +113,8 @@
     <button data-view="squad">♟<span>Rosa</span></button>
     <button data-view="help">?</button>
   </div>
-  <footer>Mantra Lab · MVP gratuito · Nessun account richiesto</footer>
+  <footer>Mantra Lab · V3.1 · Nessun account richiesto</footer>
   <script src="data-provider.js"></script>
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
