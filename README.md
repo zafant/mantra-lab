@@ -1,19 +1,24 @@
-# Mantra Lab V3 foundation
+# Mantra Lab V3.1
 
 ## What's new
-- Interactive formation-builder direction preserved from MVP v2.
+- Interactive formation builder with drag & drop and mobile tap-to-place.
+- Combinatorial squad analyzer: tests every supported module instead of relying on greedy assignment.
+- Automatic formation generation with coverage percentage and missing-role hints.
+- Formation result cards integrated into the dark sport-tech UI.
 - PWA/offline shell (manifest + service worker).
 - Data-provider abstraction for a future authorized online listone source.
 - Local CSV/JSON workflows remain the fallback.
-- Static hosting ready: GitHub Pages or Cloudflare Pages.
+- Static hosting ready for Cloudflare Pages / Workers and GitHub Pages.
 
-## Hosting plan
-Recommended for the current static phase:
-1. Dedicated public GitHub repository.
-2. Cloudflare Pages connected to that repository for deployment/previews.
-3. Optional custom domain later.
+## Current product flow
+**LISTONE → ROSA → MODULO → FORMAZIONE**
 
-GitHub Pages is also a viable zero-cost static host. Cloudflare Pages currently supports static HTML and automatic deployments from Git, with a Free plan. See the project roadmap before connecting a live domain.
+The core experience is designed to remain free and mobile-first: select a squad, ask Mantra Lab to analyze it, compare compatible modules and open any result directly on the pitch.
 
-## Important
-The online listone button should only be connected to a source/API whose terms authorize automated retrieval and reuse of the data/images.
+## Hosting
+The production repository is connected to Cloudflare. New commits on `main` are intended to trigger the connected deployment automatically.
+
+## Data and legal
+The demo data is local sample data. The online listone layer must only be connected to a source/API whose terms authorize automated retrieval and reuse of the relevant data and images.
+
+The official Fantacalcio 2026/27 listone and Mantra roles are published by Fantacalcio.it; Mantra role assignments can receive an end-of-market check during the season, so the provider layer should remain updateable rather than hard-coded forever.
