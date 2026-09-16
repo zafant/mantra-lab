@@ -10,123 +10,34 @@
   <title>Mantra Lab — Costruisci e prova la tua rosa</title>
   <meta name="description" content="Configuratore gratuito per provare rose e moduli Fantacalcio Mantra e Classic.">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-v32.css">
 </head>
 <body>
   <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">M</span><span>MANTRA <b>LAB</b></span></div>
-    <nav>
-      <button class="nav-btn active" data-view="builder">Builder</button>
-      <button class="nav-btn" data-view="squad">La mia rosa <span id="squadCount">0</span></button>
-      <button class="nav-btn" data-view="help">Come funziona</button>
-    </nav>
-    <div class="top-actions">
-      <button class="ghost" id="exportBtn">Esporta</button>
-      <label class="ghost file-btn">Importa <input id="importInput" type="file" accept=".json,.csv"></label>
-    </div>
+    <nav><button class="nav-btn active" data-view="builder">Builder</button><button class="nav-btn" data-view="squad">La mia rosa <span id="squadCount">0</span></button><button class="nav-btn" data-view="help">Come funziona</button></nav>
+    <div class="top-actions"><button class="ghost" id="exportBtn">Esporta</button><label class="ghost file-btn">Importa <input id="importInput" type="file" accept=".json,.csv"></label></div>
   </header>
-
   <main>
-    <section class="hero">
-      <div>
-        <div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.2</div>
-        <h1>Prova la tua rosa.<br><span>Trova il tuo modulo.</span></h1>
-        <p>Seleziona i giocatori, scegli uno schema e verifica in tempo reale se la tua rosa copre ogni posizione.</p>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0/30</strong><small>rosa selezionata</small></div>
-        <div class="stat-card"><span class="stat-icon">▦</span><strong id="heroListone">0</strong><small>giocatori nel listone</small></div>
-        <div class="stat-card"><span class="stat-icon">✦</span><strong id="heroModules">11</strong><small>schemi Mantra</small></div>
-      </div>
+    <section class="hero"><div><div class="eyebrow">IL LABORATORIO DEL FANTALLENATORE · V3.2</div><h1>Prova la tua rosa.<br><span>Trova il tuo modulo.</span></h1><p>Seleziona i giocatori, scegli uno schema e verifica in tempo reale se la tua rosa copre ogni posizione.</p></div>
+      <div class="hero-stats"><div class="stat-card"><span class="stat-icon">◈</span><strong id="heroPlayers">0/30</strong><small>rosa selezionata</small></div><div class="stat-card"><span class="stat-icon">▦</span><strong id="heroListone">0</strong><small>giocatori nel listone</small></div><div class="stat-card"><span class="stat-icon">✦</span><strong id="heroModules">11</strong><small>schemi Mantra</small></div></div>
     </section>
-
     <section id="builderView" class="view">
-      <div class="toolbar card">
-        <div class="mode-switch">
-          <button class="mode active" data-mode="mantra">MANTRA</button>
-          <button class="mode" data-mode="classic">CLASSIC</button>
-        </div>
-        <div class="toolbar-search">
-          <span>⌕</span><input id="playerSearch" placeholder="Cerca giocatore, squadra o ruolo…">
-        </div>
-        <div class="roster-counter" aria-live="polite"><b id="rosterCount">0</b><span>/ 30 rosa</span></div>
-        <button class="ghost compact" id="selectVisibleBtn">Seleziona visibili</button>
-        <button class="ghost compact" id="clearSelectionBtn">Deseleziona</button>
-        <select id="moduleSelect" class="visually-hidden"></select>
-        <button class="primary" id="autoBtn"><span>✦</span> Trova formazioni</button>
-      </div>
-      <section class="module-browser card">
-        <div class="module-browser-head">
-          <div><span class="muted">SCHEMI MANTRA</span><h2>Scegli il modulo</h2></div>
-          <div class="module-browser-meta"><b id="compatibleCount">0</b><span>/ 11 compatibili</span></div>
-        </div>
-        <div id="moduleGrid" class="module-grid"></div>
-      </section>
-
+      <div class="toolbar card"><div class="mode-switch"><button class="mode active" data-mode="mantra">MANTRA</button><button class="mode" data-mode="classic">CLASSIC</button></div><div class="toolbar-search"><span>⌕</span><input id="playerSearch" placeholder="Cerca giocatore, squadra o ruolo…"></div><div class="roster-counter" aria-live="polite"><b id="rosterCount">0</b><span>/ 30 rosa</span></div><button class="ghost compact" id="selectVisibleBtn">Seleziona visibili</button><button class="ghost compact" id="clearSelectionBtn">Deseleziona</button><select id="moduleSelect" class="visually-hidden"></select><button class="primary" id="autoBtn"><span>✦</span> Trova formazioni</button></div>
+      <section class="module-browser card"><div class="module-browser-head"><div><span class="muted">SCHEMI MANTRA</span><h2>Scegli il modulo</h2></div><div class="module-browser-meta"><b id="compatibleCount">0</b><span>/ 11 compatibili</span></div></div><div id="moduleGrid" class="module-grid"></div></section>
       <div class="workspace">
-        <aside class="sidebar card">
-          <div class="panel-head"><div><h2>Listone</h2><span id="listMeta">Demo locale · max 30 in rosa</span></div><button id="clearSearch" class="icon" aria-label="Pulisci ricerca">×</button></div>
-          <div class="listone-tools"><button class="filter-chip active" id="allPlayersBtn">Tutti</button><button class="filter-chip" id="selectedPlayersBtn">Selezionati</button><span id="visibleCount"></span></div>
-          <div id="playerList" class="player-list"></div>
-          <div class="sidebar-foot">I dati mostrati nella demo sono esempi. Usa <b>Importa</b> per caricare il tuo dataset.</div>
-        </aside>
-
-        <section class="pitch-wrap">
-          <div class="pitch-head">
-            <div><span class="muted">FORMAZIONE</span><h2 id="moduleTitle">3-4-3</h2><span id="moduleSubtitle" class="module-subtitle">11 slot · 11 titolari</span></div>
-            <div id="statusPill" class="status neutral">Seleziona i giocatori</div>
-          </div>
-          <div class="pitch-shell">
-            <div class="pitch-toolbar"><span>LIVE PREVIEW</span><button id="shuffleBtn" class="mini-btn">↻ Cambia modulo</button></div>
-            <div class="pitch" id="pitch"></div>
-          </div>
-          <div class="bench card">
-            <div><span class="muted">ROSA SELEZIONATA</span><strong id="selectedSummary">0 / 30 giocatori</strong><small id="selectionHint" class="selection-hint">Seleziona dal listone</small></div>
-            <div class="bench-chips" id="benchChips"></div>
-          </div>
-        </section>
-
-        <aside class="analysis card">
-          <div class="panel-head"><div><h2>Analisi</h2><span>Copertura del modulo</span></div></div>
-          <div id="coverage"></div>
-          <div class="tip" id="tipBox"><b>💡 Suggerimento</b><p>Aggiungi almeno un giocatore per iniziare la simulazione.</p></div>
-        </aside>
-
-        <aside class="formation-panel card">
-          <div class="panel-head"><div><h2>Formazioni trovate</h2><span>Analisi combinatoria della rosa</span></div><span class="live-dot">LIVE</span></div>
-          <div id="formationResults" class="formation-results"></div>
-        </aside>
+        <aside class="sidebar card"><div class="panel-head"><div><h2>Listone</h2><span id="listMeta">Demo locale · max 30 in rosa</span></div><button id="clearSearch" class="icon" aria-label="Pulisci ricerca">×</button></div><div class="listone-tools"><button class="filter-chip active" id="allPlayersBtn">Tutti</button><button class="filter-chip" id="selectedPlayersBtn">Selezionati</button><span id="visibleCount"></span></div><div id="playerList" class="player-list"></div><div class="sidebar-foot">I dati mostrati nella demo sono esempi. Usa <b>Importa</b> per caricare il tuo dataset.</div></aside>
+        <section class="pitch-wrap"><div class="pitch-head"><div><span class="muted">FORMAZIONE</span><h2 id="moduleTitle">3-4-3</h2><span id="moduleSubtitle" class="module-subtitle">11 slot · 11 titolari</span></div><div id="statusPill" class="status neutral">Seleziona i giocatori</div></div><div class="pitch-shell"><div class="pitch-toolbar"><span>LIVE PREVIEW</span><button id="shuffleBtn" class="mini-btn">↻ Cambia modulo</button></div><div class="pitch" id="pitch"></div></div><div class="bench card"><div><span class="muted">ROSA SELEZIONATA</span><strong id="selectedSummary">0 / 30 giocatori</strong><small id="selectionHint" class="selection-hint">Seleziona dal listone</small></div><div class="bench-chips" id="benchChips"></div></div></section>
+        <aside class="analysis card"><div class="panel-head"><div><h2>Analisi</h2><span>Copertura del modulo</span></div></div><div id="coverage"></div><div class="tip" id="tipBox"><b>💡 Suggerimento</b><p>Aggiungi almeno un giocatore per iniziare la simulazione.</p></div></aside>
+        <aside class="formation-panel card"><div class="panel-head"><div><h2>Formazioni trovate</h2><span>Analisi combinatoria della rosa</span></div><span class="live-dot">LIVE</span></div><div id="formationResults" class="formation-results"></div></aside>
       </div>
     </section>
-
-    <section id="squadView" class="view hidden">
-      <div class="page-head"><div><div class="eyebrow">LA MIA ROSA</div><h2>La tua rosa virtuale</h2><p>Una rosa locale, senza account e senza costi.</p></div><button class="danger" id="resetSquad">Svuota rosa</button></div>
-      <div class="squad-grid" id="squadGrid"></div>
-    </section>
-
-    <section id="helpView" class="view hidden">
-      <div class="help card">
-        <div class="eyebrow">MVP / ROADMAP</div>
-        <h2>Il prodotto nasce gratuito e utile.</h2>
-        <p>Questa prima versione è una web app statica: nessun server, nessun account, nessun costo di hosting obbligatorio. I dati della rosa restano nel browser.</p>
-        <div class="roadmap">
-          <div><b>01</b><h3>Formation Builder</h3><p>Selezione giocatori, moduli e validazione ruoli.</p></div>
-          <div><b>02</b><h3>Squad Analyzer</h3><p>“Quali moduli posso fare con questa rosa?”</p></div>
-          <div><b>03</b><h3>Asta Assistant</h3><p>Individuazione dei ruoli scoperti e dei profili necessari.</p></div>
-          <div><b>04</b><h3>Monetizzazione</h3><p>Spazi pubblicitari non invasivi e suggerimenti extra, mantenendo il core gratuito.</p></div>
-        </div>
-        <div class="notice"><b>Nota sui dati:</b> il sito non incorpora automaticamente il listone di terzi. L'importazione è predisposta per usare dati che l'utente è autorizzato a utilizzare.</div>
-      </div>
-    </section>
+    <section id="squadView" class="view hidden"><div class="page-head"><div><div class="eyebrow">LA MIA ROSA</div><h2>La tua rosa virtuale</h2><p>Una rosa locale, senza account e senza costi.</p></div><button class="danger" id="resetSquad">Svuota rosa</button></div><div class="squad-grid" id="squadGrid"></div></section>
+    <section id="helpView" class="view hidden"><div class="help card"><div class="eyebrow">MVP / ROADMAP</div><h2>Il prodotto nasce gratuito e utile.</h2><p>Questa prima versione è una web app statica: nessun server, nessun account, nessun costo di hosting obbligatorio. I dati della rosa restano nel browser.</p><div class="roadmap"><div><b>01</b><h3>Formation Builder</h3><p>Selezione giocatori, moduli e validazione ruoli.</p></div><div><b>02</b><h3>Squad Analyzer</h3><p>“Quali moduli posso fare con questa rosa?”</p></div><div><b>03</b><h3>Asta Assistant</h3><p>Individuazione dei ruoli scoperti e dei profili necessari.</p></div><div><b>04</b><h3>Monetizzazione</h3><p>Spazi pubblicitari non invasivi e suggerimenti extra, mantenendo il core gratuito.</p></div></div><div class="notice"><b>Nota sui dati:</b> il sito non incorpora automaticamente il listone di terzi. L'importazione è predisposta per usare dati che l'utente è autorizzato a utilizzare.</div></div></section>
   </main>
-
-  <div class="mobile-dock">
-    <button data-view="builder" class="dock-active">⌂<span>Builder</span></button>
-    <button data-view="squad">♟<span>Rosa</span></button>
-    <button data-view="help">?</button>
-  </div>
+  <div class="mobile-dock"><button data-view="builder" class="dock-active">⌂<span>Builder</span></button><button data-view="squad">♟<span>Rosa</span></button><button data-view="help">?</button></div>
   <div id="appToast" class="app-toast" role="status" aria-live="polite"></div><footer>Mantra Lab · V3.2 · Nessun account richiesto</footer>
-  <script src="data-provider.js"></script>
-  <script src="app.js"></script>
+  <script src="data-provider.js"></script><script src="app.js"></script>
 </body>
 </html>
