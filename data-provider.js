@@ -32,6 +32,7 @@ function normalizePlayer(o){
     initialPrice:Number(o.initialPrice||o["Qt.I"])||0,
     fvm:Number(o.fvm||o.FVM)||0,
     fvmMantra:Number(o.fvmMantra||o["FVM M"])||0,
+    image:String(o.image||o.imageUrl||o.photo||o.photoUrl||"").trim(),
     season:String(o.season||"2026/27"),
     source:String(o.source||"Fantacalcio.it")
   };
